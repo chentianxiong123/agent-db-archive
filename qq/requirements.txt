@@ -1,0 +1,2 @@
+# QQ Android Database Toolkit
+# 无需额外依赖，仅需 Python 3 标准库

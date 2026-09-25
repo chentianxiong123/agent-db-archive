@@ -9,6 +9,7 @@ agent-db-archive/
 ├── trae/        # Trae CN（字节跳动 AI IDE）— SQLCipher 加密数据库
 ├── hermes/      # Hermes — 明文 SQLite 数据库
 ├── opencode/    # OpenCode CLI — 明文 SQLite 数据库（待开发）
+├── qq/          # QQ Android — XOR 加密 SQLite 数据库
 ├── README.md
 └── .gitignore
 ```
@@ -20,6 +21,7 @@ agent-db-archive/
 | Trae CN | SQLCipher 4 | 需要内存扫描提取密钥 | ✅ 完成 |
 | Hermes | 明文 SQLite | 无加密 | ✅ 完成 |
 | OpenCode CLI | 明文 SQLite | 无加密 | 🚧 待开发 |
+| QQ Android | SQLite + XOR | 两套 XOR 密钥（已破解） | ✅ 完成 |
 
 ## 导出格式
 
@@ -51,6 +53,9 @@ cd hermes && python export_hermes.py
 
 # OpenCode（待开发）
 cd opencode
+
+# QQ Android（需要 root 手机提取数据库）
+cd qq && python3 export_chats.py
 ```
 
 ## 技术栈
@@ -58,12 +63,14 @@ cd opencode
 - Python 3.8+
 - sqlite3 / sqlcipher3
 - pymem（内存扫描，仅 Trae）
+- Python 标准库（QQ Android）
 
 ## 注意事项
 
 - 各工具提取的是本地存储的聊天数据，请遵守相关软件的用户协议
 - Trae 工具需要 Windows 环境（进程内存扫描）
 - Hermes / OpenCode 工具跨平台
+- QQ Android 工具需要 root 手机提取数据库，脚本本身跨平台
 
 ---
 
