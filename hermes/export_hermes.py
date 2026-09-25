@@ -12,6 +12,7 @@ NOISE_PATTERNS = [
     r'^\[IMPORTANT:',           # Background process notifications
     r'^You just executed tool',  # Tool callback prompts
     r'^\[CONTEXT COMPACTION',    # Context compaction summaries
+    r'^\[Note: model was just switched',  # Model switching notifications
     r'^(WARNING|ERROR)\s',      # Log output
     r'^Process exited with code', # Process error output
     r'^\s*Traceback \(most recent', # Python tracebacks
@@ -38,6 +39,8 @@ def clean_text(text):
         return ''
     # Remove context compaction blocks
     text = re.sub(r'\[CONTEXT COMPACTION[^\]]*\]\s*.*?(?=\n\n|$)', '', text, flags=re.DOTALL)
+    # Remove model switching notifications (can appear at start or middle)
+    text = re.sub(r'\[Note: model was just switched[^"]*?\]\s*', '', text)
     # Remove system reminders
     text = re.sub(r'<system-reminder>.*?</system-reminder>', '', text, flags=re.DOTALL)
     text = re.sub(r'<rules>.*?</rules>', '', text, flags=re.DOTALL)
